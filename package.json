@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "generate": "sh generate.sh"
+  },
   "dependencies": {
     "axios": "^0.21.1"
   },
