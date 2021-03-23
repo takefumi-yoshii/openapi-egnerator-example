@@ -1,0 +1,218 @@
+openapi: 3.0.0
+info:
+  title: my_api
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  '/users/{user_id}':
+    parameters:
+      - schema:
+          type: string
+        name: user_id
+        in: path
+        required: true
+    get:
+      summary: 'GET::UsersUserId'
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  id:
+                    type: string
+                    minLength: 1
+                  name:
+                    type: string
+                    minLength: 1
+                  age:
+                    type: number
+                  gender:
+                    type: string
+                    minLength: 1
+                required:
+                  - id
+                  - name
+                  - age
+              examples:
+                example-1: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      operationId: UsersUserIdGet
+      description: 特定ユーザーの取得
+    patch:
+      summary: 'PATCH::UsersUserId'
+      operationId: UsersUserIdPatch
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      description: 特定ユーザーの更新
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                id:
+                  type: string
+                  minLength: 1
+                name:
+                  type: string
+                  minLength: 1
+                age:
+                  type: number
+                gender:
+                  type: string
+                  minLength: 1
+              required:
+                - id
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: X-CSRF-Token
+  /users:
+    get:
+      summary: 'GET::Users'
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  users:
+                    type: array
+                    uniqueItems: false
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          minLength: 1
+                        name:
+                          type: string
+                          minLength: 1
+                        age:
+                          type: number
+                        gender:
+                          type: string
+                          minLength: 1
+                      required:
+                        - id
+                        - name
+                        - age
+                required:
+                  - users
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
+      operationId: UsersGet
+      description: ユーザー一覧の取得
+    post:
+      summary: 'POST::Users'
+      operationId: UsersPost
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+      description: ユーザーの作成
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                age:
+                  type: number
+                gender:
+                  type: string
+                  minLength: 1
+              required:
+                - name
+                - age
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: X-CSRF-Token
+components:
+  schemas: {}
